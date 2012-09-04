@@ -1,0 +1,9 @@
+Image preloader webp ? .webp : .jpg
+####
+
+!! Not fully tested
+
+
+init preload() after window.load
+
+<img data-image="something" />
