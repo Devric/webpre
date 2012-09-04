@@ -1,0 +1,49 @@
+!!!5
+html
+    head
+        script(src="http://code.jquery.com/jquery-1.8.1.min.js")
+        script
+            
+            var webp; /* Test for webp */
+            (function() {
+                var img = new Image();
+                img.onload = function()  { webp = !!(img.height > 0 && img.width > 0); };
+                img.onerror = function() { webp = false; };
+                img.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+            })();
+
+            /* image preload by detecting data-src */
+            preload = function(){
+                var imags;
+                imgs = document.getElementsByTagName('img');
+
+                window.IMG = new Image()
+                IMGArray = new Array()
+
+                var i = 0;
+                for ( ; i < imgs.length; i++ ) {
+
+                    if (imgs[i].getAttribute('data-src')) {
+                        /* get src webp? */
+                        var src = imgs[i].getAttribute('data-src') + ( webp ? '.webp' : '.jpg' ) ;
+
+                        /* preload image */
+                        IMGArray[i] = src;
+                        IMG.src=IMGArray[i];
+                        /* console.log(IMG.src); */
+
+                        /* assign src */
+                        imgs[i].setAttribute('src', src);
+                    }
+                }
+            }
+
+            $(window).load(function(){
+                preload();
+            });
+
+    body
+        img(data-src="img/1", width="500", height="320")
+        img(data-src="img/2", width="500", height="320")
+        img(data-src="img/3", width="500", height="320")
+        img(data-src="img/4", width="500", height="320")
